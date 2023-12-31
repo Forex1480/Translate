@@ -1,0 +1,65 @@
+import tkinter as tk
+from translate import Translator
+
+win = tk.Tk()
+win.title("                                                                                                                    Translator")
+
+frame = tk.Frame(width=800, height=600)
+frame.pack()
+
+win.resizable(False, False)
+
+langFrom = tk.Entry(width=2)
+langFrom.place(x=160, y=50)
+
+langTo = tk.Entry(width=2)
+langTo.place(x=625, y=50)
+
+text_box1 = tk.Text(width=40, height=30)
+text_box1.place(x=15, y=100)
+
+text_box2 = tk.Text(width=40, height=30)
+text_box2.place(x=465, y=100)
+
+win.geometry('{}x{}'.format(frame['width'], frame['height']))
+
+def translateEngine():
+    textFrom = langFrom.get()
+    textTo = langTo.get()
+    textToTranslate = text_box1.get("1.0", "end")
+
+    translateText = Translator(from_lang=textFrom, to_lang=textTo)
+    translation = translateText.translate(textToTranslate)
+
+    text_box2.delete("1.0", "end")
+    text_box2.insert("1.0", translation)
+
+translate = tk.Button(text="Translate", height=2, width=7, command=translateEngine)
+translate.place(x=375, y=90)
+
+def help():
+    helpWin = tk.Tk()
+    helpWin.title("Help")
+    line1 = tk.Label(helpWin, text="Welcome to the Translator, a translate device that convert a word or a phrase from a language to another.")
+    line1.pack()
+    line2 = tk.Label(helpWin, text="How to use:")
+    line2.pack()
+    line3 = tk.Label(helpWin, text="#First you have to set the language from your text by clicking the free space from the top of the text box.")
+    line3.pack()
+    line4 = tk.Label(helpWin, text="(The languages are written from two letters:en = english, ru = russian, ro = romanian etc.)")
+    line4.pack()
+    line5 = tk.Label(helpWin, text="#Then you have to insert the text or word by pasting it into the first text box.")
+    line5.pack()
+    line6 = tk.Label(helpWin, text="#After inserting, you need to write the language you want the translator to translate the text in the next small box.")
+    line6.pack()
+    line7 = tk.Label(helpWin, text="#And, after all, you have to press the *translate* button to translate the text.")
+    line7.pack()
+    line8 = tk.Label(helpWin, text="I hope you will enjoy the translator!")
+    line8.pack()
+    helpWin.geometry("800x550")
+    helpWin.resizable(False, False)
+
+getHelp = tk.Button(text="?", height=2, width=2, command=help)
+getHelp.place(x=390, y=490)
+
+win.mainloop()
